@@ -1,6 +1,19 @@
 import React, { useState } from "react";
 import { View, Text } from "react-native";
-import { Input, Key, TextKey } from "./style";
+import {
+    Input,
+    TextKey,
+    Page,
+    TitleShadowLeft,
+    TitleContentLeft,
+    TitleShadowRight,
+    TitleContentRight,
+    ButtonLeftShadow,
+    ButtonContentLeft,
+    ButtonRightShadow,
+    ButtonContentRight
+} from "./style";
+
 import WordsRef from "./words.json";
 
 const diciojs = require('dicionario.js')
@@ -17,99 +30,107 @@ export default function Home(){
     return(
     <Page>
         <View style={{ width: "100%", display: "flex", flexDirection: "column", alignItems: "flex-start", marginBottom: 15, marginTop: 10 }}>
-            <View style={{
-                backgroundColor: "#BD5061",
-                borderTopRightRadius: 10,
-                borderBottomEndRadius: 10,
-                height: 55,
-                paddingRight: 25,
-                paddingLeft: 10,
-                display: "flex",
-                justifyContent: "center",
-                alignContent: "center",
-                width: "60%"
-            }}>
-            </View>
-            <View
-                style={{
-                    width: "58%",
-                    borderTopRightRadius: 10,
-                    borderBottomEndRadius: 10,
-                    backgroundColor: "#2F3342",
-                    height: 55,
-                    marginTop: -64,
-                    display: "flex",
-                    justifyContent: "center",
-                    alignItems: "center"
-                    }}
-            >
-            <Text
-                    style={{
-                        color: "#F3E3E3",
-                        fontSize: 20,
-                        fontWeight: "bold"
-                    }}
-                >
+            <TitleShadowLeft/>
+            <TitleContentLeft>
+                <Text style={{ color: "#F3E3E3", fontSize: 20, fontWeight: "bold" }}>
                     WORD WRAP
                 </Text>
-            </View>
+            </TitleContentLeft>
         </View>
         <View style={{ width: "100%", display: "flex", flexDirection: "column", alignItems: "flex-end", marginBottom: 15, marginTop: 10 }}>
-            <View style={{
-                backgroundColor: "#2F3342",
-                borderTopLeftRadius: 10,
-                borderBottomStartRadius: 10,
-                height: 55,
-                paddingRight: 25,
-                paddingLeft: 10,
-                display: "flex",
-                justifyContent: "center",
-                alignContent: "center",
-                width: "55%"
-            }}>
-            </View>
-            <View
-                style={{
-                    width: "57%",
-                    borderTopLeftRadius: 10,
-                    borderBottomStartRadius: 10,
-                    backgroundColor: "#BD5061",
-                    height: 55,
-                    marginTop: -64,
-                    display: "flex",
-                    justifyContent: "center",
-                    alignItems: "center"
-                    }}
-            >
-            <Text
-                    style={{
-                        color: "#F3E3E3",
-                        fontSize: 20,
-                        fontWeight: "bold"
-                    }}
-                >
+            <TitleShadowRight/>
+            <TitleContentRight>
+                <Text style={{ color: "#F3E3E3", fontSize: 20, fontWeight: "bold" }}>
                     CONFIGURAÇÕES
                 </Text>
+            </TitleContentRight>
+        </View>
+        <View style={{display: "flex", justifyContent: "center", alignItems: "center", marginBottom: 10 }}>
+            <View style={{display: "flex", flexDirection: "row", marginTop: 10, padding: 5}}>
+                <Input/>
+                <Input />
+                <Input/>
+                <Input/>
+                <Input/>
+            </View>
+            <View style={{display: "flex", flexDirection: "row", padding: 5}}>
+                <Input/>
+                <Input />
+                <Input/>
+                <Input/>
+                <Input/>
+            </View>
+            <View style={{display: "flex", flexDirection: "row", padding: 5}}>
+                <Input/>
+                <Input />
+                <Input/>
+                <Input/>
+                <Input/>
+            </View>
+            <View style={{display: "flex", flexDirection: "row", padding: 5}}>
+                <Input/>
+                <Input />
+                <Input/>
+                <Input/>
+                <Input/>
+            </View>
+            <View style={{display: "flex", flexDirection: "row", padding: 5}}>
+                <Input/>
+                <Input />
+                <Input/>
+                <Input/>
+                <Input/>
             </View>
         </View>
-        <View style={{display: "flex", flexDirection: "row", marginTop: 10, padding: 10}}>
-            <Input/>
-            <Input />
-            <Input/>
-            <Input/>
-            <Input/>
+        <View style={{ width: "100%", display: "flex", flexDirection: "row", alignItems: "flex-start", marginBottom: 15, marginTop: 10 }}>
+            <View style={{width: "50%"}}>
+                <ButtonLeftShadow/>
+                <ButtonContentLeft>
+                    <Text style={{ color: "#F3E3E3", fontSize: 20, fontWeight: "bold" }}>
+                        X
+                    </Text>
+                </ButtonContentLeft>
+            </View>
+            <View style={{width: "50%", display: "flex", flexDirection: "column", alignItems: "flex-end"}}>
+                <ButtonRightShadow/>
+                <ButtonContentRight>
+                    <Text style={{ color: "#F3E3E3", fontSize: 20, fontWeight: "bold" }}>
+                        X
+                    </Text>
+                </ButtonContentRight>
+            </View>
         </View>
-        <View style={{padding: 5, display: "flex", flexDirection: "row", width: "100%"}}>
-            <Key><TextKey>Q</TextKey></Key>
-            <Key><TextKey>W</TextKey></Key>
-            <Key><TextKey>E</TextKey></Key>
-            <Key><TextKey>R</TextKey></Key>
-            <Key><TextKey>T</TextKey></Key>
-            <Key><TextKey>Y</TextKey></Key>
-            <Key><TextKey>U</TextKey></Key>
-            <Key><TextKey>I</TextKey></Key>
-            <Key><TextKey>O</TextKey></Key>
-            <Key><TextKey>P</TextKey></Key>
+        <View style={{padding: 5, display: "flex", flexDirection: "row", width: "100%", justifyContent: "center", alignItems: "center"}}>
+            <TextKey>Q</TextKey>
+            <TextKey>W</TextKey>
+            <TextKey>E</TextKey>
+            <TextKey>R</TextKey>
+            <TextKey>T</TextKey>
+            <TextKey>Y</TextKey>
+            <TextKey>U</TextKey>
+            <TextKey>I</TextKey>
+            <TextKey>O</TextKey>
+            <TextKey>P</TextKey>
+        </View>
+        <View style={{padding: 5, display: "flex", flexDirection: "row", width: "100%", justifyContent: "center", alignItems: "center" }}>
+            <TextKey>A</TextKey>
+            <TextKey>S</TextKey>
+            <TextKey>D</TextKey>
+            <TextKey>F</TextKey>
+            <TextKey>G</TextKey>
+            <TextKey>H</TextKey>
+            <TextKey>J</TextKey>
+            <TextKey>K</TextKey>
+            <TextKey>L</TextKey>
+        </View>
+        <View style={{padding: 5, display: "flex", flexDirection: "row", width: "100%", justifyContent: "center", alignItems: "center" }}>
+            <TextKey>Z</TextKey>
+            <TextKey>X</TextKey>
+            <TextKey>C</TextKey>
+            <TextKey>V</TextKey>
+            <TextKey>B</TextKey>
+            <TextKey>N</TextKey>
+            <TextKey>M</TextKey>
         </View>
     </Page>
     )
