@@ -1,5 +1,6 @@
-import React, { useState } from "react";
+import React from "react";
 import { View, Text } from "react-native";
+import { Keyboard } from "../../Components/";
 import {
     Input,
     TextKey,
@@ -13,20 +14,37 @@ import {
     ButtonRightShadow,
     ButtonContentRight
 } from "./style";
+import Ionicons from '@expo/vector-icons/Ionicons';
 
 import WordsRef from "./words.json";
 
 const diciojs = require('dicionario.js')
 
 export default function Home(){
-    const[words, setWords] = useState(WordsRef);
-    console.log("👽 WordsRef", WordsRef[0])
-
+    const [words, setWords] = React.useState(WordsRef);
+    const [line, setLine] = React.useState([[null, null, null, null, null], [null, null, null, null, null], [null, null, null, null, null], [null, null, null, null, null]])
     React.useEffect(async () => {
         const word = await diciojs.significado('cervo')
-        console.log(word)
+        //console.log(word)
+        //console.log(line[0].word)
+        
     }, [])
 
+    const handleChangeWord = (value, currentLine, position) => {
+    console.log("👽 value", value)
+        let newValue = line;
+        newValue[currentLine][position] = value[value.length - 1];
+        console.log("👽 value[value.length - 1]", value[value.length - 1])
+        console.log("👽 newValue[currentLine][position]", newValue[currentLine][position])
+        setLine(JSON.parse(JSON.stringify(newValue)))
+        console.log("👽 newValue", newValue)
+        console.log("👽 LINE[0][0]", line[0][0])
+    }
+
+    React.useEffect(() => {
+        console.log("👽 LINE", line)
+    }, [line])
+    
     return(
     <Page>
         <View style={{ width: "100%", display: "flex", flexDirection: "column", alignItems: "flex-start", marginBottom: 15, marginTop: 10 }}>
@@ -47,7 +65,7 @@ export default function Home(){
         </View>
         <View style={{display: "flex", justifyContent: "center", alignItems: "center", marginBottom: 10 }}>
             <View style={{display: "flex", flexDirection: "row", marginTop: 10, padding: 5}}>
-                <Input/>
+                <Input maxLength={1} onChangeText={(e)=> handleChangeWord(e, 0, 0)} value={line[0][0]}/>
                 <Input />
                 <Input/>
                 <Input/>
@@ -87,7 +105,7 @@ export default function Home(){
                 <ButtonLeftShadow/>
                 <ButtonContentLeft>
                     <Text style={{ color: "#F3E3E3", fontSize: 20, fontWeight: "bold" }}>
-                        X
+                        <Ionicons name="close" size={32} color="#F3E3E3"/>
                     </Text>
                 </ButtonContentLeft>
             </View>
@@ -95,43 +113,12 @@ export default function Home(){
                 <ButtonRightShadow/>
                 <ButtonContentRight>
                     <Text style={{ color: "#F3E3E3", fontSize: 20, fontWeight: "bold" }}>
-                        X
+                        <Ionicons name="checkmark" size={32} color="#F3E3E3"/>
                     </Text>
                 </ButtonContentRight>
             </View>
         </View>
-        <View style={{padding: 5, display: "flex", flexDirection: "row", width: "100%", justifyContent: "center", alignItems: "center"}}>
-            <TextKey>Q</TextKey>
-            <TextKey>W</TextKey>
-            <TextKey>E</TextKey>
-            <TextKey>R</TextKey>
-            <TextKey>T</TextKey>
-            <TextKey>Y</TextKey>
-            <TextKey>U</TextKey>
-            <TextKey>I</TextKey>
-            <TextKey>O</TextKey>
-            <TextKey>P</TextKey>
-        </View>
-        <View style={{padding: 5, display: "flex", flexDirection: "row", width: "100%", justifyContent: "center", alignItems: "center" }}>
-            <TextKey>A</TextKey>
-            <TextKey>S</TextKey>
-            <TextKey>D</TextKey>
-            <TextKey>F</TextKey>
-            <TextKey>G</TextKey>
-            <TextKey>H</TextKey>
-            <TextKey>J</TextKey>
-            <TextKey>K</TextKey>
-            <TextKey>L</TextKey>
-        </View>
-        <View style={{padding: 5, display: "flex", flexDirection: "row", width: "100%", justifyContent: "center", alignItems: "center" }}>
-            <TextKey>Z</TextKey>
-            <TextKey>X</TextKey>
-            <TextKey>C</TextKey>
-            <TextKey>V</TextKey>
-            <TextKey>B</TextKey>
-            <TextKey>N</TextKey>
-            <TextKey>M</TextKey>
-        </View>
+        <Keyboard/>
     </Page>
     )
 }

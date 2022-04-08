@@ -18,18 +18,6 @@ export const Input = styled.TextInput`
     margin-right: 5px;
 `;
 
-export const TextKey = styled.Text`
-    color: #F3E3E3;
-    font-weight: bold;
-    font-size: 20px;
-    width: 32px;
-    height: 32px;
-    background-color: #BD5061;
-    border-radius: 4px;
-    margin-right: 3px;
-    text-align: center;
-`;
-
 export const TitleContentLeft = styled.View`
     width: 58%;
     border-top-right-radius: 10px;
