@@ -8,14 +8,18 @@ export const Page = styled.View`
     padding-top: 50px;
 `;
 
-export const Input = styled.TextInput`
+export const Input = styled.Text`
     width: 50px;
     height: 50px;
-    background-color: #f3e3e3;
+    background-color: ${props => props.success ? "#b5c887" : (props.anyValue ? "#eee27f" : (props.noValue ? "#d5665b" : "#f3e3e3"))};;
     border-radius: 4px;
-    border-color: #2f3341;
-    border-width: 1px;
+    border-color: ${props => props.error ? "#d5665b" : "#2f3341"};
+    border-width: ${props => props.error ? "2px" : "1px"};;
     margin-right: 5px;
+    text-align: center;
+    padding-top: 15px;
+    color: #2f3341;
+    font-weight: bold;
 `;
 
 export const TitleContentLeft = styled.View`
@@ -81,7 +85,7 @@ export const ButtonLeftShadow = styled.View`
     width: 34%;
 `; 
 
-export const ButtonContentLeft = styled.View`
+export const ButtonContentLeft = styled.TouchableOpacity`
     width: 30%;
     border-top-right-radius: 10px;
     border-bottom-right-radius: 10px;
@@ -106,7 +110,7 @@ export const ButtonRightShadow = styled.View`
     width: 30%;
 `; 
 
-export const ButtonContentRight = styled.View`
+export const ButtonContentRight = styled.TouchableOpacity`
     width: 34%;
     border-top-left-radius: 10px;
     border-bottom-left-radius: 10px;
