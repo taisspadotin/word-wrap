@@ -1,3 +1,7 @@
 import Keyboard from "./Keyboard/";
+import Modal from "./Modal/";
 
-export { Keyboard };
+export {
+    Keyboard,
+    Modal
+};

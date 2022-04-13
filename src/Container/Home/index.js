@@ -1,6 +1,7 @@
 import React from "react";
 import { View, Text } from "react-native";
-import { Keyboard } from "../../Components/";
+import { WinnerScreen } from "../";
+import { Keyboard, Modal } from "../../Components/";
 import {
     Input,
     TextKey,
@@ -21,6 +22,7 @@ import WordsRef from "./words.json";
 const diciojs = require('dicionario.js')
 
 export default function Home(){
+    const [openModal, setOpenModal] = React.useState(false);
     const [words, setWords] = React.useState(WordsRef);
     const [currentWord, setCurrentWord] = React.useState(WordsRef[0].toUpperCase());
     const [line, setLine] = React.useState([
@@ -30,6 +32,11 @@ export default function Home(){
         { values: [{ value: null }, { value: null }, { value: null }, { value: null }, { value: null }], complete: false, current: true },
         { values: [{ value: null }, { value: null }, { value: null }, { value: null }, { value: null }], complete: false, current: true }
     ]);
+    const [usedWords, setUsedWords] = React.useState({useless: [], used: [], right: []});
+
+    const closeModal = () => {
+        setOpenModal(false)
+    }
 
     const handleLetter = letter => {
         let newLine = line;
@@ -44,10 +51,7 @@ export default function Home(){
                 }
             })
         }
-        setLine(JSON.parse(JSON.stringify(newLine)))
-        console.log("👽 newLine", newLine)
-        console.log("👽 letter", letter)
-        
+        setLine(JSON.parse(JSON.stringify(newLine)));
     }
 
     const handleCheck = async () => {
@@ -58,17 +62,17 @@ export default function Home(){
         newLine[currentIndex].values.map(x => {
             word += x.value;
         })
-        console.log("👽 word", word)
+        
         try{
             if(currentWord.toUpperCase() === word.toUpperCase()){
                 /** Se é a palavra certa */
-                console.log("ACERTOUUUU")
                 newLine[currentIndex].values.map(x => x.success = true);
+                setOpenModal(true);
             }
             else{
                 /** Se é uma palavra válida */
                 const meaning = await diciojs.significado(word)
-                console.log("👽 meaning", meaning)
+                let newUsedWords = JSON.parse(JSON.stringify(usedWords))
                 /** Altera o index de referência */
                 newLine[currentIndex].current = false;
                 newLine[currentIndex + 1].current = true;
@@ -76,15 +80,18 @@ export default function Home(){
                 word.split("").map((letter, index) => {
                     if(letter === currentWord.split("")[index]){
                         newLine[currentIndex].values[index].success = true;
+                        newUsedWords.right.push(newLine[currentIndex].values[index].value)
                     }
                     else if(currentWord.split("").some(x => x === letter)){
                         newLine[currentIndex].values[index].anyValue = true;
+                        newUsedWords.used.push(newLine[currentIndex].values[index].value)
                     }
                     else{
                         newLine[currentIndex].values[index].noValue = true;
+                        newUsedWords.useless.push(newLine[currentIndex].values[index].value)
                     }
                 })
-
+                setUsedWords(newUsedWords);
             }
         }
         catch(error){
@@ -154,7 +161,8 @@ export default function Home(){
                 </ButtonContentRight>
             </View>
         </View>
-        <Keyboard handleLetter={handleLetter}/>
+        <Keyboard usedWords={usedWords} handleLetter={handleLetter}/>
+        <Modal open={openModal} content={<WinnerScreen closeModal={closeModal}/>}/>
     </Page>
     )
 }
